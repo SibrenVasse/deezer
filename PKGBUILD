@@ -2,7 +2,7 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=4.15.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -10,20 +10,22 @@ license=('custom:"Copyright (c) 2006-2018 Deezer S.A."')
 depends=('electron')
 provides=('deezer')
 makedepends=('p7zip' 'asar' 'prettier')
-source=(
-         "$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/$pkgver"
-         "$pkgname.desktop"
-         systray.patch
-         nodeIntegration.patch
-         urls.patch
-         frameless.patch
-)
+source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/$pkgver"
+        "$pkgname.desktop"
+        systray.patch
+        nodeIntegration.patch
+        urls.patch
+        frameless.patch
+        0001-MPRIS-interface.patch
+        extra_node_modules.tar.xz)
 md5sums=('208423389ef47f1c70d60d6e591202e0'
          'bb851102d63a9cb396b42d7a61c5104c'
          '4a491cdf76afeffb7680d3abdc3f4b89'
          '199ce71cc60dd7feb84ee36a8580639d'
          '7ee49aab9514e5a4df00fbd7da982688'
-         '3ffc8aa66157da1088eeeaa4b3f05587')
+         '3ffc8aa66157da1088eeeaa4b3f05587'
+         '4e808a642cf96aab1ad1212fc40cc8f0'
+         'bf0abe1b196068808543a86f3e8bb2b0')
 
 prepare() {
     # Extract app from installer
@@ -47,6 +49,10 @@ prepare() {
     patch -p1 < "$srcdir/urls.patch"
     # Disable menu bar
     patch -p1 < "$srcdir/frameless.patch"
+
+    # Monkeypatch MPRIS D-Bus interface
+    patch -p1 < "$srcdir/0001-MPRIS-interface.patch"
+    tar -xvf "$srcdir/extra_node_modules.tar.xz"
 
     cd ..
     asar pack app app.asar
