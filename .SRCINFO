@@ -10,7 +10,6 @@ pkgbase = deezer
 	makedepends = prettier
 	depends = electron
 	provides = deezer
-	options = !strip
 	source = deezer-4.15.0-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/4.15.0
 	source = deezer.desktop
 	source = systray.patch
