@@ -1,7 +1,7 @@
 pkgbase = deezer
 	pkgdesc = A proprietary music streaming service
 	pkgver = 4.15.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://www.deezer.com/
 	arch = any
 	license = custom:"Copyright (c) 2006-2018 Deezer S.A."
@@ -15,7 +15,7 @@ pkgbase = deezer
 	source = systray.patch
 	source = nodeIntegration.patch
 	source = urls.patch
-	source = frameless.patch
+	source = menu-bar.patch
 	source = 0001-MPRIS-interface.patch
 	source = extra_node_modules.tar.xz
 	md5sums = 208423389ef47f1c70d60d6e591202e0
@@ -23,7 +23,7 @@ pkgbase = deezer
 	md5sums = 4a491cdf76afeffb7680d3abdc3f4b89
 	md5sums = 199ce71cc60dd7feb84ee36a8580639d
 	md5sums = 7ee49aab9514e5a4df00fbd7da982688
-	md5sums = 3ffc8aa66157da1088eeeaa4b3f05587
+	md5sums = 10058bb31eccb62c706be2d336184a70
 	md5sums = 4e808a642cf96aab1ad1212fc40cc8f0
 	md5sums = bf0abe1b196068808543a86f3e8bb2b0
 
