@@ -2,7 +2,7 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=4.15.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -16,14 +16,16 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
         nodeIntegration.patch
         urls.patch
         menu-bar.patch
+        oauth.patch
         0001-MPRIS-interface.patch
         extra_node_modules.tar.xz)
 md5sums=('f86f410e47142a7efadd1d8246c3d8a8'
-         'bb851102d63a9cb396b42d7a61c5104c'
+         '36d184ea3ad5a0fccd71bebeed0ade27'
          '4a491cdf76afeffb7680d3abdc3f4b89'
          '199ce71cc60dd7feb84ee36a8580639d'
          '7ee49aab9514e5a4df00fbd7da982688'
          '10058bb31eccb62c706be2d336184a70'
+         '9efc2a2f897df72cba314056531b1fed'
          '4e808a642cf96aab1ad1212fc40cc8f0'
          'bf0abe1b196068808543a86f3e8bb2b0')
 
@@ -52,6 +54,8 @@ prepare() {
     patch -p1 < "$srcdir/urls.patch"
     # Disable menu bar
     patch -p1 < "$srcdir/menu-bar.patch"
+    # Fix oauth login
+    patch -p1 < "$srcdir/oauth.patch"
 
     # Monkeypatch MPRIS D-Bus interface
     patch -p1 < "$srcdir/0001-MPRIS-interface.patch"

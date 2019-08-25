@@ -1,0 +1,22 @@
+diff --git a/app/js/main/SchemeHandler/index.js b/app/js/main/SchemeHandler/index.js
+index 5523f24..fc7e2be 100644
+--- a/app/js/main/SchemeHandler/index.js
++++ b/app/js/main/SchemeHandler/index.js
+@@ -67,7 +67,7 @@ var DZR_CUSTOM_SCHEMES = ["dzr", "deezer"],
+           key: "getSchemePathFromArgs",
+           value: function(e) {
+             if (e.length < 2) return !1;
+-            var t = e[1];
++            var t = e[2];
+             return this.getSchemePathFromArg(t);
+           }
+         },
+@@ -134,7 +134,7 @@ var DZR_CUSTOM_SCHEMES = ["dzr", "deezer"],
+           key: "handleSchemeFromNonSingleInstance",
+           value: function(e) {
+             var t = this.getSchemePathFromArgs(e);
+-            return "win32" == process.platform && !1 !== t
++            return !1 !== t
+               ? this.isNonPathAction(t)
+                 ? this.handleNonPathAction(t)
+                 : this.handlePath(t)
