@@ -1,7 +1,7 @@
 pkgbase = deezer
 	pkgdesc = A proprietary music streaming service
 	pkgver = 4.16.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.deezer.com/
 	arch = any
 	license = custom:"Copyright (c) 2006-2018 Deezer S.A."
@@ -27,7 +27,7 @@ pkgbase = deezer
 	sha256sums = d4fb866b4b58924c830370ecbab6d1b38bbbdb7cc2a803ec4b6baa14c831b716
 	sha256sums = 964d23e5fa473bd1a78bed4213d0a546a253541e0b82337dc5929c3719bbe020
 	sha256sums = 59be8a818eb71220afe16816c013ae794aae974a351775e7945fc45b22d45586
-	sha256sums = 9ea3eb1aadfd3200fe923cb4741fbc1983912911e0468521d769673c9648dbab
+	sha256sums = 158b38d38d578126acdb88d40bac00b09a7263f43c5b68490eea997e8cc53c8e
 	sha256sums = b9343921a4896027798597058149b9666f0782eddf8c2436291397ec5631a742
 
 pkgname = deezer
