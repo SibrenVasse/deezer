@@ -30,7 +30,7 @@ new file mode 100644
 index 0000000..bbf7ca0
 --- /dev/null
 +++ b/node_modules/electron-media-service/src/linux/index.js
-@@ -0,0 +1,84 @@
+@@ -0,0 +1,85 @@
 +const { EventEmitter } = require('events');
 +const mpris = require('mpris-service');
 +
@@ -97,20 +97,21 @@ index 0000000..bbf7ca0
 +        album,
 +        albumArt,
 +        id,
-+        state
++        state,
++        isNextEnabled,
++        isPreviousEnabled
 +    }) {
 +        this._requireStart();
 +        this.player.metadata = {
++            'mpris:trackid': this.player.objectPath('track/0'),
 +            'xesam:title': title,
 +            'xesam:album': album,
 +            'xesam:artist': [ artist ],
 +            'mpris:artUrl': albumArt
 +        }
-+        if (state === 'playing') {
-+            this.player.playbackStatus = 'Playing';
-+        } else {
-+            this.player.playbackStatus = 'Stopped';
-+        }
++        this.player.canGoNext = isNextEnabled;
++        this.player.canGoPrevious = isPreviousEnabled;
++        this.player.playbackStatus = state === 'playing' ? 'Playing' : 'Paused';
 +    }
 +}
 +

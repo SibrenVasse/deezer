@@ -2,7 +2,7 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=4.17.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -16,14 +16,14 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
         menu-bar.patch
         oauth.patch
         0001-MPRIS-interface.patch
-        extra_node_modules.tar.xz)
+        node_modules.tar.xz)
 sha256sums=('8092bc51485491ce04bfa9907923d82afac5332e2c622995b5dc6af62aa1619f'
             'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
             'c024851f4c87580b4f764c88f630d77a28794338d0b43947e68939afb146bc0a'
             '964d23e5fa473bd1a78bed4213d0a546a253541e0b82337dc5929c3719bbe020'
             '59be8a818eb71220afe16816c013ae794aae974a351775e7945fc45b22d45586'
-            '140818380067a82f4d6c44f098b3c1246684a8ead96c897642b954e87efa3f0a'
-            'b9343921a4896027798597058149b9666f0782eddf8c2436291397ec5631a742')
+            '8cf5e2c87163e9b4f017956e7ff60265a5ffb94b6f0a9e25660cdc82f6731c6e'
+            '8a8a42fd38c6fc5a5f9523620ce7e794355ceec5d71c93a7cee378c9a5b3d8ec')
 
 prepare() {
     # Extract app from installer
@@ -51,7 +51,7 @@ prepare() {
 
     # Monkeypatch MPRIS D-Bus interface
     patch -p1 < "$srcdir/0001-MPRIS-interface.patch"
-    tar -xvf "$srcdir/extra_node_modules.tar.xz"
+    tar -xvf "$srcdir/node_modules.tar.xz"
 
     cd ..
     asar pack app app.asar
