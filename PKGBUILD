@@ -1,8 +1,8 @@
 # Maintainer: Sibren Vasse <arch@sibrenvasse.nl>
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
-pkgver=4.16.3
-pkgrel=2
+pkgver=4.17.0
+pkgrel=1
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -13,17 +13,13 @@ makedepends=('p7zip' 'asar' 'prettier' 'imagemagick')
 source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/$pkgver"
         "$pkgname.desktop"
         systray.patch
-        nodeIntegration.patch
-        urls.patch
         menu-bar.patch
         oauth.patch
         0001-MPRIS-interface.patch
         extra_node_modules.tar.xz)
-sha256sums=('f9f67f28240aad0e6bccbd96ec02a60241a66de47b6008ba0e2167b3f17cdea7'
+sha256sums=('8092bc51485491ce04bfa9907923d82afac5332e2c622995b5dc6af62aa1619f'
             'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
             'c024851f4c87580b4f764c88f630d77a28794338d0b43947e68939afb146bc0a'
-            '4a405326e0c93188cc305e196cf69684d9dddde4584c5e5dfe1587c6151d5252'
-            'd4fb866b4b58924c830370ecbab6d1b38bbbdb7cc2a803ec4b6baa14c831b716'
             '964d23e5fa473bd1a78bed4213d0a546a253541e0b82337dc5929c3719bbe020'
             '59be8a818eb71220afe16816c013ae794aae974a351775e7945fc45b22d45586'
             '140818380067a82f4d6c44f098b3c1246684a8ead96c897642b954e87efa3f0a'
@@ -48,10 +44,6 @@ prepare() {
     prettier --write "app/*.js"
     # Fix crash on startup since 4.14.1 (patch systray icon path)
     patch -p1 < "$srcdir/systray.patch"
-    # Fix electron 5 incompatibility
-    patch -p1 < "$srcdir/nodeIntegration.patch"
-    # Fix startup error electron 6.0.1 (https://github.com/electron/electron/pull/19570)
-    patch -p1 < "$srcdir/urls.patch"
     # Disable menu bar
     patch -p1 < "$srcdir/menu-bar.patch"
     # Fix oauth login
