@@ -41,7 +41,6 @@ index 301db0d..9677e7c 100644
 +
 +class MediaService extends EventEmitter {
 +    constructor() {
-+        console.log("INITIALIZING LINUX MEDIA SERVICE");
 +        super();
 +        this.player = mpris({
 +                            name: 'deezer',
@@ -115,7 +114,8 @@ index 301db0d..9677e7c 100644
 +                'mpris:trackid': this.player.objectPath('track/0'),
 +                'xesam:title': title ,
 +                'xesam:album': album,
-+                'xesam:artist': [ artist ]
++                'xesam:artist': [ artist ],
++                'mpris:artUrl': albumArt
 +            }
 +        }
 +
