@@ -14,15 +14,14 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
         "$pkgname.desktop"
         systray.patch
         menu-bar.patch
-        oauth.patch
+        nav-buttons.patch
         0001-MPRIS-interface.patch)
 sha256sums=('6af0d33489a82399a814928daa96cece5eaf4b3276b7ede2bf88c1c78a3b160d'
             'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
             'f7df7ba3dd91d8d327c3bfe69c65d3969b3f7a80ca253c29bad316e09f65ab8b'
             '8a22f666e308663cb6addabe7695b1e5e3bfa07f68cc7b479e51426dee1c36b0'
-            '5cbe1696d5f948cdda1fdd5ef9f8d94d5e14d8594558e35472517fa659057add'
-            '217d899797908004453e9c0d86057b5682b3612c6412b4f6c107ac4ad201320b'
-            '8a8a42fd38c6fc5a5f9523620ce7e794355ceec5d71c93a7cee378c9a5b3d8ec')
+            '4b9279549a4ea005e5a852b7ecad8749d0c60be51a87105db364afbcdcd0bcfd'
+            '217d899797908004453e9c0d86057b5682b3612c6412b4f6c107ac4ad201320b')
 
 prepare() {
     # Extract app from installer
@@ -54,10 +53,13 @@ prepare() {
     cd "$srcdir/resources/app"
 
     prettier --write "build/*.js"
+    prettier --write "build/assets/cache/js/route-naboo*ads*.js"
     # Fix crash on startup since 4.14.1 (patch systray icon path)
     patch -p1 < "$srcdir/systray.patch"
     # Disable menu bar
     patch -p1 < "$srcdir/menu-bar.patch"
+    # Fix navbar
+    patch -p1 < "$srcdir/nav-buttons.patch"
 
     # Monkeypatch MPRIS D-Bus interface
     patch -p1 < "$srcdir/0001-MPRIS-interface.patch"
