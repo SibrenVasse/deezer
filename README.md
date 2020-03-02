@@ -15,3 +15,20 @@ git clone https://github.com/SibrenVasse/deezer
 cd deezer
 makepkg -si
 ```
+
+## Debugging
+Running the application from the commandline will show verbose logging.
+```
+deezer
+```
+
+To run the application with devtools by running
+```
+env DZ_DEVTOOLS=yes electron6 /usr/share/deezer/app.asar
+```
+
+To debug node, you can extract the source files to a directory and inspect the node process by attaching using the chromium debugging tools. (https://www.electronjs.org/docs/tutorial/debugging-main-process)
+```
+asar extract /usr/share/deezer/app.asar $dest
+electron6 --inspect-brk=$port $dest
+```
