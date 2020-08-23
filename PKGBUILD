@@ -7,7 +7,7 @@ pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
 license=('custom:"Copyright (c) 2006-2018 Deezer S.A."')
-depends=('electron6')
+depends=('electron')
 provides=('deezer')
 makedepends=('p7zip' 'asar' 'prettier' 'imagemagick' 'npm')
 source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/$pkgver"
@@ -18,7 +18,7 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
     0001-MPRIS-interface.patch)
 sha256sums=('d6cb463118fd7e5e9b48b8bc85c9a912ba9508d551e7143584fdbbe5b4e3fe7f'
             'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
-            '441ab8532eac991eb5315a8ab39242aae1aa6fd633e8af4b0ab2a247fe1239cc'
+            '1be8a5f75edae28d6e3c97bb878061f99dcc4a8c944390b27cf03a9dd542a768'
             '8a22f666e308663cb6addabe7695b1e5e3bfa07f68cc7b479e51426dee1c36b0'
             '75c7edd8714393579e29842a8e15aabccfd0a9b5130ff7501890e7c1c1931b46'
             '217d899797908004453e9c0d86057b5682b3612c6412b4f6c107ac4ad201320b')
