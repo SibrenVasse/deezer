@@ -17,7 +17,7 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
 sha256sums=('1c00d286f209de69ff5fee811a5662b8d7114046a9c74348c31ce955352b5856'
             'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
             '8717ba2de9cabc5c0a35780315871329c15bde5ff46c4f0bf859a87e42aa96f5'
-            'd3f96ae6019abb60aa097919b22b1873f83061ed7453cd251e43b3afe5d54919')
+            'c866d032d572383c0035d28b20f6b371521fad73e48b3ee43dffb9cb9ec200af')
 
 prepare() {
     # Extract app from installer

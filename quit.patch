@@ -1,13 +1,22 @@
 diff --git a/build/main.js b/build/main.js
-index 5066eef..46b04c5 100644
+index 5066eef..d05dda2 100644
 --- a/build/main.js
 +++ b/build/main.js
-@@ -3079,7 +3080,7 @@
+@@ -503,7 +503,7 @@
+       }
+       closeWindow() {
+         if (this.getWindow())
+-          return isPlatform(PLATFORM.DARWIN)
++          return isPlatform(PLATFORM.DARWIN) || isPlatform(PLATFORM.LINUX)
+             ? (this.getWindow().isFullScreen() &&
+                 this.getWindow().setFullScreen(!1),
+               this.getWindow().hide())
+@@ -3079,7 +3079,7 @@
              this._adjustViewToContentSize(),
              mainView.setAutoResize({ width: !0, height: !0 });
          } else this.appService.setWindow(this.window, void 0);
 -        if ((this.appService.setUserAgent(), isPlatform(PLATFORM.DARWIN))) {
-+        if ((this.appService.setUserAgent(), isPlatform(PLATFORM.LINUX))) {
++        if ((this.appService.setUserAgent(), isPlatform(PLATFORM.DARWIN) || isPlatform(PLATFORM.LINUX))) {
            let isQuitting = !1;
            external_electron_namespaceObject.app.on(
              "before-quit",
