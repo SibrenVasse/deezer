@@ -13,11 +13,13 @@ makedepends=('p7zip' 'asar' 'prettier' 'imagemagick' 'npm' 'nodejs')
 source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/$pkgver"
     "$pkgname.desktop"
     deezer
-    quit.patch)
+    quit.patch
+    start-hidden-on-tray.patch)
 sha256sums=('1c00d286f209de69ff5fee811a5662b8d7114046a9c74348c31ce955352b5856'
             'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
             '8717ba2de9cabc5c0a35780315871329c15bde5ff46c4f0bf859a87e42aa96f5'
-            'd3f96ae6019abb60aa097919b22b1873f83061ed7453cd251e43b3afe5d54919')
+            'd3f96ae6019abb60aa097919b22b1873f83061ed7453cd251e43b3afe5d54919'
+            'b5306d7be60e92630ba7cfb8441263086a3455ee41c9e3bb38a86e4b46dd367c')
 
 prepare() {
     # Extract app from installer
@@ -38,6 +40,9 @@ prepare() {
     prettier --write "build/*.js"
     # Hide to tray (https://github.com/SibrenVasse/deezer/issues/4)
     patch -p1 <"$srcdir/quit.patch"
+
+    # Start hidden on tray
+    patch -p1 <"$srcdir/start-hidden-on-tray.patch"
 
     cd "$srcdir/resources/"
     asar pack app app.asar
