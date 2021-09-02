@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Deezer
+Name=Deezer2
 StartupNotify=true
 Icon=deezer
 Comment=Deezer audio streaming service
-Exec=/usr/bin/deezer %u
+Exec=/usr/bin/deezer2 %u
 Terminal=false
 Type=Application
 MimeType=x-scheme-handler/deezer;

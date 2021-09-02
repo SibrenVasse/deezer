@@ -1,0 +1,24 @@
+diff --git a/build/main.js b/build/main.js
+index 928061e..c081dce 100644
+--- a/build/main.js
++++ b/build/main.js
+@@ -3243,7 +3243,7 @@
+     external_electron_settings_default().configure({
+       dir: external_path_default().join(
+         external_electron_namespaceObject.app.getPath("home"),
+-        ".config/deezer-desktop"
++        ".config/deezer-desktop-2"
+       ),
+       fileName: "settings.json",
+     }),
+diff --git a/package.json b/package.json
+index f997773..af5f05e 100644
+--- a/package.json
++++ b/package.json
+@@ -1,5 +1,5 @@
+ {
+-  "name": "deezer-desktop",
++  "name": "deezer-desktop-2",
+   "version": "5.30.50",
+   "private": true,
+   "description": "The official Deezer Desktop application built with Electron",
