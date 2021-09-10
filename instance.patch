@@ -19,6 +19,6 @@ index f997773..af5f05e 100644
  {
 -  "name": "deezer-desktop",
 +  "name": "deezer-desktop-2",
-   "version": "5.30.50",
+   "version": "5.30.60",
    "private": true,
    "description": "The official Deezer Desktop application built with Electron",

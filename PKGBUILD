@@ -1,8 +1,8 @@
 # Maintainer: Sibren Vasse <arch@sibrenvasse.nl>
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer2"
-pkgver=5.30.50
-pkgrel=2
+pkgver=5.30.60
+pkgrel=1
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -16,12 +16,12 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
     start-hidden-on-tray.patch
     quit.patch
     instance.patch)
-sha256sums=('f9cc50f27af60e85f561b10f1d13f9934897d328509c15d9b013a0620fd38b6e'
+sha256sums=('026cc41022aee5f3ee97e3b5a61a535ecfce4c19ba9d04c4e5ac6712268c3951'
             'a232ec0febbcf5572e3622c264616877b83f9397a4335e225136cec74a55cf3c'
             'cd5e0cad607bcfdbf44bc5c3bac0af80b826380414613b5bad464fecc14fc203'
             '2254632a03ca2cf7ae6b50a4109b0bec417cf0db6d669a8037125d13488e3b9f'
             'd3f96ae6019abb60aa097919b22b1873f83061ed7453cd251e43b3afe5d54919'
-            '48aec4f64e1bbfa44a7f7ac1742d3cd0ef43ce0b784ae00f286685609d69836b')
+            '29c4b93dbf0d0915ac54773d62bae86910ec5d2dc3e8aaf39244044419845d41')
 
 prepare() {
     # Extract app from installer
