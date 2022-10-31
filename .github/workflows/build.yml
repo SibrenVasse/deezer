@@ -14,6 +14,8 @@ jobs:
     - name: Makepkg Build and Check
       id: makepkg
       uses: edlanglois/pkgbuild-action@v1
+      with:
+        aurDeps: electron13-bin
     - name: Print Package Files
       run: |
         echo "Successfully created the following package archive"
