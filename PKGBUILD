@@ -2,7 +2,7 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=5.30.540
-pkgrel=1
+pkgrel=2
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -17,7 +17,8 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
     avoid-change-default-texthtml-mime-type.patch
     fix-isDev-usage.patch
     start-hidden-in-tray.patch
-    quit.patch)
+    quit.patch
+    systray-buttons-fix.patch)
 sha256sums=('51c082088aa38a96674620938ba83fc506506dda5c91e5ede2cfe074834143ac'
             'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
             'b464dbfc0d426730259ce2abc660960ecc6a73bbef838b8fbbd15deb2f5dce53'
@@ -25,7 +26,8 @@ sha256sums=('51c082088aa38a96674620938ba83fc506506dda5c91e5ede2cfe074834143ac'
             '357b1e208aa58353a0fd176318b4628a7bed3210686e35f8d30399c750c99b0d'
             '731d25269ed260b386ad40937e38b6f56634cf7a13e2a98a8eaf53a778026161'
             '505bc0363443f8a921361efb5f204a15afa7773e57fa386c2221ba1609b896c8'
-            '78d26c08c234594eeba0ac68c95612a8c01ea4026f34e0141e8a997287b0af1b')
+            '78d26c08c234594eeba0ac68c95612a8c01ea4026f34e0141e8a997287b0af1b'
+            'f3b75aabbd3530c329e70a83ca89dba938eda34f61a31c6e66169f493ac21b04')
 
 prepare() {
     # Extract app from installer
