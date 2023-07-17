@@ -1,7 +1,7 @@
 pkgbase = deezer
 	pkgdesc = A proprietary music streaming service
 	pkgver = 5.30.590
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.deezer.com/
 	arch = any
 	license = custom:"Copyright (c) 2006-2023 Deezer S.A."
@@ -9,8 +9,6 @@ pkgbase = deezer
 	makedepends = asar
 	makedepends = prettier>=3.0.0
 	makedepends = imagemagick
-	makedepends = npm
-	makedepends = nodejs
 	depends = electron13-bin
 	provides = deezer
 	source = deezer-5.30.590-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/5.30.590
@@ -23,7 +21,7 @@ pkgbase = deezer
 	source = quit.patch
 	source = systray-buttons-fix.patch
 	sha256sums = 84fcedb6525908670cf3909d4a57d4c43034719478b09dfff51ffca3b4570e16
-	sha256sums = f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99
+	sha256sums = c16cf96707c6c047e5f2ec336ce3c639ecf2fc207ff9db365b17363d13380d2c
 	sha256sums = b464dbfc0d426730259ce2abc660960ecc6a73bbef838b8fbbd15deb2f5dce53
 	sha256sums = ec87bbcc5a615c61c78bf117889d5b697a2174150722b1318205ad1c903286f2
 	sha256sums = 3566f3aa580b35a5af7f31831c36d579576a47286103a9b621051a8a38ac3180

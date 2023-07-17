@@ -2,14 +2,14 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=5.30.590
-pkgrel=1
+pkgrel=2
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
 license=('custom:"Copyright (c) 2006-2023 Deezer S.A."')
 depends=('electron13-bin')
 provides=('deezer')
-makedepends=('p7zip' 'asar' 'prettier>=3.0.0' 'imagemagick' 'npm' 'nodejs')
+makedepends=('p7zip' 'asar' 'prettier>=3.0.0' 'imagemagick')
 source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact/win32/x86/$pkgver"
     "$pkgname.desktop"
     deezer
@@ -20,7 +20,7 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
     quit.patch
     systray-buttons-fix.patch)
 sha256sums=('84fcedb6525908670cf3909d4a57d4c43034719478b09dfff51ffca3b4570e16'
-            'f8a5279239b56082a5c85487b0c261fb332623f27dac3ec8093458b8c55d8d99'
+            'c16cf96707c6c047e5f2ec336ce3c639ecf2fc207ff9db365b17363d13380d2c'
             'b464dbfc0d426730259ce2abc660960ecc6a73bbef838b8fbbd15deb2f5dce53'
             'ec87bbcc5a615c61c78bf117889d5b697a2174150722b1318205ad1c903286f2'
             '3566f3aa580b35a5af7f31831c36d579576a47286103a9b621051a8a38ac3180'
