@@ -2,7 +2,7 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=7.0.40
-pkgrel=1
+pkgrel=2
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -26,7 +26,7 @@ sha256sums=('b9834561ff0a6897f9746034bfd4b8608d92b8164acd5e3783b2004b2b249628'
             '3566f3aa580b35a5af7f31831c36d579576a47286103a9b621051a8a38ac3180'
             '44769901b801c59163af31cdd946cd432bbd7b1cf481f7e611aa5347fd455ec4'
             'df910c26b0f36bf441c7c1fbea67c0e4f8fea801842705e2adbe636d6b8d244b'
-            '58d88abb1e6ea1369a28cfee53afff500645e2ada0c25faeaa2df9bce7ded2ab'
+            '90a797525021a6a55e16d15f962ade80f7f1f84aab00ce6b577f539c42fb1029'
             '78d26c08c234594eeba0ac68c95612a8c01ea4026f34e0141e8a997287b0af1b')
 
 prepare() {
