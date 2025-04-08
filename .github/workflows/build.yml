@@ -29,8 +29,8 @@ jobs:
           draft: false
           prerelease: false
           body: ''
-          name: ${{ github.ref }}
-          tag_name: ${{ github.ref }}
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
