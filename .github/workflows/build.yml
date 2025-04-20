@@ -28,6 +28,7 @@ jobs:
         with:
           draft: false
           prerelease: false
+          overwrite: true
           body: ''
           name: ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
