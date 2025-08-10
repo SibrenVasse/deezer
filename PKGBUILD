@@ -2,12 +2,12 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=7.0.140
-pkgrel=1
+pkgrel=2
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
 license=('custom:"Copyright (c) 2006-2024 Deezer S.A."')
-depends=('electron37')
+depends=('electron37' 'hicolor-icon-theme')
 provides=('deezer')
 makedepends=('p7zip' 'asar' 'prettier>=3.0.0' 'imagemagick')
 source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact-win32-x86-$pkgver"
@@ -25,7 +25,7 @@ sha256sums=('9cbe79e00c915121a90e6d2c28c1f7e6ef41f28f2dfa5b3afb5bea62fd98e6b8'
             '8eddebb9274e66051b55728e3b73263c0a2d288f70fc6c15917a604a08f7f705'
             'ea846387f2cda84ae152d034f682d2efc87559b5ef7a83eeca8884b49ff2940b'
             '08c9c6276b26da000562a2506694cc76f6799a693eb9e977b5e332db43abe01f'
-            'df910c26b0f36bf441c7c1fbea67c0e4f8fea801842705e2adbe636d6b8d244b'
+            'ab7f65e4af1a52d899ba01c3042a1b49a29dec976dae93f17f8f6c4067991c04'
             '90a797525021a6a55e16d15f962ade80f7f1f84aab00ce6b577f539c42fb1029'
             '78d26c08c234594eeba0ac68c95612a8c01ea4026f34e0141e8a997287b0af1b')
 
@@ -36,14 +36,18 @@ prepare() {
     7z x -y -bsp0 -bso0 app-32.7z
 
     # Extract png from ico container
-    magick resources/win/app.ico resources/win/deezer.png
+    magick resources/win/app.ico resources/win/deezer-%d.png
 
     cd resources/
     asar extract app.asar app
 
     cd "$srcdir/resources/app"
     mkdir -p resources/linux/
-    install -Dm644 "$srcdir/resources/win/systray.png" resources/linux/
+    for size in 24 48; do
+	    magick "$srcdir/resources/win/deezer-8.png" -resize "${size}x${size}" -strip \
+            -define png:compression-filter=5 -define png:compression-level=9 \
+            "resources/linux/systray-${size}.png"
+    done
 
     prettier --write "build/*.js"
 
@@ -53,7 +57,7 @@ prepare() {
       src="${src##*/}"
       [[ $src = *.patch ]] || continue
       echo "Applying patch ${src}..."
-      patch -Np1 < "${srcdir}/${src}"
+      patch -Np1 -l -F3 < "${srcdir}/${src}"
     done
 
     cd "$srcdir/resources/"
@@ -64,17 +68,14 @@ package() {
     mkdir -p "$pkgdir/usr/share/deezer"
     mkdir -p "$pkgdir/usr/share/applications"
     mkdir -p "$pkgdir/usr/bin/"
-    for size in 16 32 48 64 128 256; do
-        mkdir -p "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/"
+    for size in 16 22 24 32 48 64 128 256 512; do
+        install -d "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/"
+        magick resources/win/deezer-8.png -resize "${size}x${size}" -strip \
+            -define png:compression-filter=5 -define png:compression-level=9 \
+            "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/deezer.png"
     done
 
     install -Dm644 resources/app.asar "$pkgdir/usr/share/deezer/"
-    install -Dm644 resources/win/deezer-0.png "$pkgdir/usr/share/icons/hicolor/16x16/apps/deezer.png"
-    install -Dm644 resources/win/deezer-1.png "$pkgdir/usr/share/icons/hicolor/32x32/apps/deezer.png"
-    install -Dm644 resources/win/deezer-2.png "$pkgdir/usr/share/icons/hicolor/48x48/apps/deezer.png"
-    install -Dm644 resources/win/deezer-3.png "$pkgdir/usr/share/icons/hicolor/64x64/apps/deezer.png"
-    install -Dm644 resources/win/deezer-4.png "$pkgdir/usr/share/icons/hicolor/128x128/apps/deezer.png"
-    install -Dm644 resources/win/deezer-5.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/deezer.png"
     install -Dm644 "$pkgname.desktop" "$pkgdir/usr/share/applications/"
     install -Dm755 deezer "$pkgdir/usr/bin/"
 }
