@@ -2,32 +2,48 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 pkgname="deezer"
 pkgver=7.0.140
-pkgrel=2
+pkgrel=4
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
 license=('custom:"Copyright (c) 2006-2024 Deezer S.A."')
 depends=('electron37' 'hicolor-icon-theme')
 provides=('deezer')
-makedepends=('p7zip' 'asar' 'prettier>=3.0.0' 'imagemagick')
+makedepends=('p7zip' 'asar' 'prettier>=3.0.0' 'imagemagick' 'npm')
 source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact-win32-x86-$pkgver"
     "$pkgname.desktop"
     deezer
-    remove-kernel-version-from-user-agent.patch
-    avoid-change-default-texthtml-mime-type.patch
-    start-hidden-in-tray.patch
-    systray.patch
-    systray-buttons-fix.patch
-    quit.patch)
+    "01-start-hidden-in-tray.patch"
+    "02-avoid-change-default-texthtml-mime-type.patch"
+    "03-quit.patch"
+    "04-disable-auto-updater.patch"
+    "05-remove-os-information.patch"
+	"06-better-management-of-MPRIS.patch"
+	"07-log-level-environment-variable.patch"
+	"08-additional-metadata.patch"
+    "10-improve-responsiveness.patch"
+    "11-hide-appoffline-banner.patch"
+    "12-disable-animations.patch"
+    "13-disable-notifications.patch"
+    "14-thumbar-actions.patch"
+    "15-systray-icon.patch")
 sha256sums=('9cbe79e00c915121a90e6d2c28c1f7e6ef41f28f2dfa5b3afb5bea62fd98e6b8'
             'c16cf96707c6c047e5f2ec336ce3c639ecf2fc207ff9db365b17363d13380d2c'
             'b1cc3320f0892478a305dd10cd9d6f079d8708f35fb679b34588e359584102a3'
-            '8eddebb9274e66051b55728e3b73263c0a2d288f70fc6c15917a604a08f7f705'
-            'ea846387f2cda84ae152d034f682d2efc87559b5ef7a83eeca8884b49ff2940b'
-            '08c9c6276b26da000562a2506694cc76f6799a693eb9e977b5e332db43abe01f'
-            'ab7f65e4af1a52d899ba01c3042a1b49a29dec976dae93f17f8f6c4067991c04'
-            '90a797525021a6a55e16d15f962ade80f7f1f84aab00ce6b577f539c42fb1029'
-            '78d26c08c234594eeba0ac68c95612a8c01ea4026f34e0141e8a997287b0af1b')
+            '87aba4442321bb80da0847ab555cecf0f421ab3fccc42306f094070021819a7f'
+            'b8d18bd684cf608d81668aaa5350e7dfd15ef397d63cf1eef4b0a53208345849'
+            '876bed64728d655224b8d226d110d63e40da0d98c2b851a1897560c7b56e943a'
+            '64fcd827c29ddbecdb231f45058d5fd0ae9420f183378d2b4203d1490b40a84e'
+            '049fccb9969159b5381eb53c592213d758dee1e3e0ee02303be09bb2669d0313'
+            '76ab38e263b7aebf5282e759cd4a2c15bdafde0e784b6c6f887dd2c2ec9478b0'
+            '72a57ac93f35e7c3f5dfc9e6f1a5c2ac1eebb156ca62df9a1e644688f0ba1e3f'
+            'b0c28adc02623bad4ed684adbc71f6fac06b43ceb7ea28691857ebf6ded26c33'
+            'd681ec92a3f4409fe61734b09ad0ec5a2aa98fb67e9bc969afd94c2c733d213c'
+            '75e27255a2a48fa981b973e2441c35937bcfa682d80a58fd83975ab8c7800156'
+            'd22ae848e1e7cf118a0bd092455d24fdb4ef7cd25fa77fb59d04ef7e2f1e6961'
+            'e6331b834cff306cec941e16e137787c306b2b0383aeceaec669c028b1ad6dd5'
+            '905b30b07698bb104fd2051e12e8ef9accac04bac79d6d3603e888bf797ae7f1'
+            'ab7f65e4af1a52d899ba01c3042a1b49a29dec976dae93f17f8f6c4067991c04')
 
 prepare() {
     # Extract app from installer
@@ -49,7 +65,7 @@ prepare() {
             "resources/linux/systray-${size}.png"
     done
 
-    prettier --write "build/*.js"
+    prettier --write "build/*.{js,html}"
 
     local src
     for src in "${source[@]}"; do
@@ -59,6 +75,8 @@ prepare() {
       echo "Applying patch ${src}..."
       patch -Np1 -l -F3 < "${srcdir}/${src}"
     done
+
+    npm install "@jellybrick/mpris-service"
 
     cd "$srcdir/resources/"
     asar pack app app.asar
