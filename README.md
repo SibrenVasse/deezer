@@ -18,8 +18,8 @@ makepkg -si
 
 ## Usage
 
-| Option                                                                               | Description                                                                                                                                    |
-| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Option                                                                               | Description                                                                                                                            |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------|
 | `--start-in-tray`                                                                    | Start the app in the tray (see [patch](./01-start-hidden-in-tray.patch))                                                               |
 | `--disable-systray`                                                                  | Quit the app when the window is closed (see [patch](./03-quit.patch))                                                                  |
 | `--keep-kernel`                                                                      | Use the exact kernel version (see [patch](./05-remove-os-information.patch)) <br/> _This feature impacts privacy._                     |
@@ -27,7 +27,7 @@ makepkg -si
 | `--hide-appoffline-banner`                                                           | Hide the "Application is offline" banner that appears when using a VPN or DNS blocker (see [patch](./11-hide-appoffline-banner.patch)) |
 | `--disable-animations`                                                               | Disable animations (see [patch](./12-disable-animations.patch))                                                                        |
 | `--disable-notifications`                                                            | Disable notifications (see [patch](./13-disable-notifications.patch))                                                                  |
-| `--enable-wayland-ime` `--ozone-platform-hint=auto` `--wayland-text-input-version=3` | Enable IME keyboard support on Wayland                                                                                                         |
+| `--enable-wayland-ime` `--ozone-platform-hint=auto` `--wayland-text-input-version=3` | Enable IME keyboard support on Wayland                                                                                                 |
 
 | Environment variable        | Options                                            | Description                                                                                       |
 | --------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
@@ -35,8 +35,8 @@ makepkg -si
 | `DZ_DISABLE_ANIMATIONS`     | `yes`,`no`                                         | Disable animations (see [patch](./12-disable-animations.patch))                           |
 | `DZ_DISABLE_NOTIFICATIONS`  | `yes`,`no`                                         | Disable notifications (see [patch](./13-disable-notifications.patch))                     |
 | `LOG_LEVEL`                 | `silly`,`debug`,`verbose`,`info`,`warning`,`error` | Set the log level (see [patch](./07-log-level-environment-variable.patch))                |
-| `DZ_DEVTOOLS`               | `yes`,`no`                                         | Enable the developer console (ctrl+shift+i)                                                       |
-
+| `DZ_DEVTOOLS`               | `yes`,`no`                                         | Enable the developer console (ctrl+shift+i)                                               |
+| `DEEZER_TRAY_ICON`          | `/path/to/icon.png`                                | Run with custom systray icon [patch](./15-systray-icon.patch)                             |
 
 ## Debugging
 Running the application from the commandline will show verbose logging.
