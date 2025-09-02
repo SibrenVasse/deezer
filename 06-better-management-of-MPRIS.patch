@@ -136,12 +136,12 @@ index 8642331..86d3df2 100644
        init() {
          (external_electron_log_default().debug("Init App"),
 -          external_electron_namespaceObject.app.commandLine.appendSwitch(
-+          external_electron.app.commandLine.appendSwitch(
++          external_electron_namespaceObject.app.commandLine.appendSwitch(
              "autoplay-policy",
 -            "no-user-gesture-required",
 +            "no-user-gesture-required"
 +          ),
-+          external_electron.app.commandLine.appendSwitch(
++          external_electron_namespaceObject.app.commandLine.appendSwitch(
 +            "disable-features",
 +            "HardwareMediaKeyHandling"
            ),
