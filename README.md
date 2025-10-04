@@ -41,16 +41,16 @@ makepkg -si
 ## Debugging
 Running the application from the commandline will show verbose logging.
 ```
-deezer
+deezer-desktop
 ```
 
 To run the application with devtools by running
 ```
-env DZ_DEVTOOLS=yes electron37 /usr/share/deezer/app.asar
+env DZ_DEVTOOLS=yes electron38 /usr/share/deezer/app.asar
 ```
 
 To debug node, you can extract the source files to a directory and inspect the node process by attaching using the chromium debugging tools. (https://www.electronjs.org/docs/tutorial/debugging-main-process)
 ```
 asar extract /usr/share/deezer/app.asar $dest
-electron37 --inspect-brk=$port $dest
+electron38 --inspect-brk=$port $dest
 ```
