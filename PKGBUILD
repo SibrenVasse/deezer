@@ -7,7 +7,7 @@ _mpris_ver=2.1.5
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
-license=('custom:"Copyright (c) 2006-2024 Deezer S.A."')
+license=('custom')
 depends=('electron38' 'hicolor-icon-theme')
 provides=('deezer')
 makedepends=('p7zip' 'asar' 'imagemagick' 'npm')
@@ -15,6 +15,7 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
     "$pkgname-desktop.desktop"
     "deezer-desktop"
     "prettierrc.json"
+    "LICENSE"
     "mpris-service-${_mpris_ver}.tgz::https://registry.npmjs.org/@jellybrick/mpris-service/-/mpris-service-${_mpris_ver}.tgz"
     # Upstream patches from aunetx/deezer-linux
     "01-start-in-tray.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/01-start-in-tray.patch"
@@ -35,6 +36,7 @@ sha256sums=('48ab73820fe92b66bf610aba82a0df907a089e5028426c2ee8125486fbc9dbee'
             '41a32f7e595a52c260aa872e8273430d83e4c5fcc8e529e21afa4dab3d6b1d9c'
             '14b4b2b553b66e2cf0e45bc7274679dd06bdb891f04f2aa3be7afa96eb84101e'
             '951c80c9dc4848b31a5fcc9655b005f3a218b1ff735396168c13922ac658c83b'
+            'fe9bab50ef433516105ed2f2c349736c0be87c2f75f8d18bf1f011b2115019c1'
             '181016c614fc62595d604d336cdb43c40645d7cc66a35acaf562c9af26177a6e'
             '0d0034a367fb4e70849b604a2ab35d5ced0dccb67ad16c231783acfc9b8f64ee'
             'a369f25a29b43112cb80873d8e1691a66ea1273fd13507d1e698223bb6233a2b'
@@ -105,4 +107,5 @@ package() {
     install -Dm644 resources/app.asar "$pkgdir/usr/share/deezer/"
     install -Dm644 "$pkgname-desktop.desktop" "$pkgdir/usr/share/applications/"
     install -Dm755 deezer-desktop "$pkgdir/usr/bin/"
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
