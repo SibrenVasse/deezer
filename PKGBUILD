@@ -4,6 +4,8 @@ pkgname="deezer"
 pkgver=7.1.20
 pkgrel=1
 _mpris_ver=2.1.5
+# Commit hash for aunetx/deezer-linux for patches
+_patch_commit=c2335d6b97557d218fdbc3f883d3467ad40faf1e
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
@@ -18,17 +20,17 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
     "LICENSE"
     "mpris-service-${_mpris_ver}.tgz::https://registry.npmjs.org/@jellybrick/mpris-service/-/mpris-service-${_mpris_ver}.tgz"
     # Upstream patches from aunetx/deezer-linux
-    "01-start-in-tray.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/01-start-in-tray.patch"
-    "02-start-without-tray.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/02-start-without-tray.patch"
-    "03-disable-auto-updater.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/03-disable-auto-updater.patch"
-    "04-remove-os-information.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/04-remove-os-information.patch"
-    "05-provide-metadata-mpris.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/05-provide-metadata-mpris.patch"
-    "06-control-log-level.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/06-control-log-level.patch"
-    "07-improve-responsiveness.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/07-improve-responsiveness.patch"
-    "08-hide-offline-banner.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/08-hide-offline-banner.patch"
-    "09-disable-animations.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/09-disable-animations.patch"
-    "10-disable-notifications.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/10-disable-notifications.patch"
-    "11-fix-thumbar-actions.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/master/patches/11-fix-thumbar-actions.patch"
+"01-start-in-tray.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/01-start-in-tray.patch"
+    "02-start-without-tray.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/02-start-without-tray.patch"
+    "03-disable-auto-updater.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/03-disable-auto-updater.patch"
+    "04-remove-os-information.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/04-remove-os-information.patch"
+    "05-provide-metadata-mpris.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/05-provide-metadata-mpris.patch"
+    "06-control-log-level.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/06-control-log-level.patch"
+    "07-improve-responsiveness.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/07-improve-responsiveness.patch"
+    "08-hide-offline-banner.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/08-hide-offline-banner.patch"
+    "09-disable-animations.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/09-disable-animations.patch"
+    "10-disable-notifications.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/10-disable-notifications.patch"
+    "11-fix-thumbar-actions.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/11-fix-thumbar-actions.patch"
     # Local patches
     "99-systray-icon.patch"
 )
