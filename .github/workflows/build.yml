@@ -8,38 +8,41 @@ on:
   workflow_dispatch:
 
 jobs:
-  pkgbuild:
+  build:
     runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Makepkg Build and Check
-      id: makepkg
-      uses: edlanglois/pkgbuild-action@v1
-      with:
-        aurDeps: electron13-bin
-    - name: Print Package Files
-      run: |
-        echo "Successfully created the following package archive"
-        echo "Package: ${{ steps.makepkg.outputs.pkgfile0 }}"
-    - name: Create release
-      uses: actions/create-release@v1
-      id: create_release
-      with:
-        draft: false
-        prerelease: false
-        body: ''
-        release_name: ${{ github.ref }}
-        tag_name: ${{ github.ref }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload Package Archive
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{ steps.makepkg.outputs.pkgfile0 }}
-        asset_name: ${{ steps.makepkg.outputs.pkgfile0 }}
-        asset_content_type: application/zstd
+      - name: Checkout
+        uses: actions/checkout@v4
 
+      - name: Fix permissions
+        # Create a builder user because makepkg cannot run as root
+        run: |
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown -R builder:builder .
+
+      - name: Install dependencies
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm --needed git p7zip asar imagemagick npm electron38 hicolor-icon-theme
+
+      - name: Build Package
+        run: |
+          su builder -c "makepkg -s --noconfirm"
+
+      # Upload Artifacts
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deezer-package
+          path: ./*.pkg.tar.zst
+          if-no-files-found: error
+
+      # Create Release
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: deezer-*.pkg.tar.zst
