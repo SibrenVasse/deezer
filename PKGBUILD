@@ -10,7 +10,7 @@ pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
 license=('custom')
-depends=('electron38' 'hicolor-icon-theme')
+depends=('electron39' 'hicolor-icon-theme')
 provides=('deezer')
 makedepends=('p7zip' 'asar' 'imagemagick' 'npm')
 source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact-win32-x86-$pkgver"
@@ -36,7 +36,7 @@ source=("$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/art
 )
 sha256sums=('48ab73820fe92b66bf610aba82a0df907a089e5028426c2ee8125486fbc9dbee'
             '41a32f7e595a52c260aa872e8273430d83e4c5fcc8e529e21afa4dab3d6b1d9c'
-            '14b4b2b553b66e2cf0e45bc7274679dd06bdb891f04f2aa3be7afa96eb84101e'
+            '3da0c64c3d9216286601e0a28714e37a4bfaf9f56f35856da75986dfa2eba8fb'
             '951c80c9dc4848b31a5fcc9655b005f3a218b1ff735396168c13922ac658c83b'
             'fe9bab50ef433516105ed2f2c349736c0be87c2f75f8d18bf1f011b2115019c1'
             '181016c614fc62595d604d336cdb43c40645d7cc66a35acaf562c9af26177a6e'
