@@ -27,6 +27,7 @@ makepkg -si
 | `--hide-offline-banner` | Hide the "Application is offline" banner that appears when using a VPN or DNS blocker (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/08-hide-offline-banner.patch)) |
 | `--disable-animations` | Disable animations (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/09-disable-animations.patch)) |
 | `--disable-notifications` | Disable notifications (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/10-disable-notifications.patch)) |
+| `--disable-hardware-acceleration` | Disable hardware acceleration (useful for systems with GPU issues) (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/13-disable-hardware-acceleration.patch)) |
 | `--log-level` | Set the log level (`silly`,`debug`,`verbose`,`info`,`warn`,`error`) (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/06-control-log-level.patch)) |
 | `--enable-wayland-ime` | Enable IME keyboard support on Wayland (use with `--ozone-platform-hint=auto --wayland-text-input-version=3`) |
 
@@ -40,6 +41,7 @@ makepkg -si
 | `DZ_DISABLE_ANIMATIONS` | `yes`,`no` | Disable animations (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/09-disable-animations.patch)) |
 | `DZ_DISABLE_NOTIFICATIONS` | `yes`,`no` | Disable notifications (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/10-disable-notifications.patch)) |
 | `DZ_DEVTOOLS` | `yes`,`no` | Enable the developer console (ctrl+shift+i) |
+| `DZ_DISABLE_HARDWARE_ACCELERATION` | `yes`,`no` | Disable hardware acceleration (see [upstream patch](https://github.com/aunetx/deezer-linux/blob/master/patches/13-disable-hardware-acceleration.patch)) |
 | `DZ_TRAY_ICON` | `/path/to/icon` | Force a custom icon path for the systray (see [patch](./99-systray-icon.patch)) |
 
 ## Debugging
@@ -50,11 +52,11 @@ deezer-desktop
 
 To run the application with devtools by running
 ```
-env DZ_DEVTOOLS=yes electron38 /usr/share/deezer/app.asar
+env DZ_DEVTOOLS=yes electron39 /usr/share/deezer/app.asar
 ```
 
 To debug node, you can extract the source files to a directory and inspect the node process by attaching using the chromium debugging tools. (https://www.electronjs.org/docs/tutorial/debugging-main-process)
 ```
 asar extract /usr/share/deezer/app.asar $dest
-electron38 --inspect-brk=$port $dest
+electron39 --inspect-brk=$port $dest
 ```
