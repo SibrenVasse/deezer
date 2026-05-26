@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm --needed git p7zip asar imagemagick npm electron42 hicolor-icon-theme
+          pacman -S --noconfirm --needed git p7zip asar imagemagick npm electron41 hicolor-icon-theme
 
       - name: Build Package
         run: |
