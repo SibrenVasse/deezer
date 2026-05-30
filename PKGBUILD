@@ -2,8 +2,8 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 
 pkgname="deezer"
-pkgver=7.1.210
-pkgrel=3
+pkgver=7.1.220
+pkgrel=1
 
 # Keep this in sync with the formatter version used by aunetx/deezer-linux.
 # The upstream patches are easier to apply when the extracted Deezer JS/HTML
@@ -64,7 +64,7 @@ noextract=(
     "mpris-service-${_mpris_ver}.tgz"
 )
 
-sha256sums=('567fe009f67f5249fdef81d1f6555b9a45daf81c93863f1fcb12987c92a257d1'
+sha256sums=('f4c6542512c9e9cef58fd4db2d06f2aa20e5357eafad8dd74f3e12ab27f940ba'
             'c33b398d8ae279a620cf2914c806f7ee00c47519e4f404874cfd90a68fc8d80f'
             '3a23339b7b00d5d6d59768699f585d2565fc1cd7d2c43a254206de3840546eb6'
             '951c80c9dc4848b31a5fcc9655b005f3a218b1ff735396168c13922ac658c83b'
