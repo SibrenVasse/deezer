@@ -54,11 +54,11 @@ deezer-desktop
 
 To run the application with devtools by running
 ```
-env DZ_DEVTOOLS=yes electron39 /usr/share/deezer/app.asar
+env DZ_DEVTOOLS=yes electron41 /usr/share/deezer/app.asar
 ```
 
 To debug node, you can extract the source files to a directory and inspect the node process by attaching using the chromium debugging tools. (https://www.electronjs.org/docs/tutorial/debugging-main-process)
 ```
 asar extract /usr/share/deezer/app.asar $dest
-electron39 --inspect-brk=$port $dest
+electron41 --inspect-brk=$port $dest
 ```
