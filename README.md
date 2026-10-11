@@ -5,9 +5,15 @@ These files are build instructions for the Arch Linux build system how to create
 For Windows, Deezer distributes a version of the Electron run time (Windows binary) and the source code of their application itself. The build process of this package extracts the application source from the Windows installer.
 
 This package applies several patches for:
-- Compatibility with newer Electron versions 
+
+- Compatibility with newer Electron versions
 - Compatibility with a Linux environment in general.
 - Fixing bugs
+
+Deezer 8.0.0 runs on Electron 44 with tray controls, smaller windows, and
+five-percent volume steps when scrolling over the volume button or slider.
+Native MPRIS provides metadata, playback controls, and seeking as the `chromium`
+player.
 
 To install on Arch Linux, use your favourite AUR helper or build manually with:
 ```
@@ -21,44 +27,43 @@ makepkg -si
 | Option | Description |
 | :--- | :--- |
 | `--start-in-tray` | Start the app in the tray (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/01-start-in-tray.patch)) |
-| `--disable-systray` | Quit the app when the window is closed (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/02-start-without-tray.patch)) |
-| `--keep-kernel` | Use the exact kernel version (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/04-remove-os-information.patch)) <br> *This feature impacts privacy.* |
-| `--disable-features` | Disable some features (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/05-provide-metadata-mpris.patch)) |
-| `--hide-offline-banner` | Hide the "Application is offline" banner that appears when using a VPN or DNS blocker (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/08-hide-offline-banner.patch)) |
-| `--disable-animations` | Disable animations (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/09-disable-animations.patch)) |
-| `--disable-notifications` | Disable notifications (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/10-disable-notifications.patch)) |
-| `--sync-theme` | Sync the app's theme (dark/light) to the OS theme (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/15-sync-theme.patch)) |
-| `--disable-hardware-acceleration` | Disable hardware acceleration (useful for systems with GPU issues) (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/13-disable-hardware-acceleration.patch)) |
-| `--log-level` | Set the log level (`silly`,`debug`,`verbose`,`info`,`warn`,`error`) (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/06-control-log-level.patch)) |
+| `--disable-systray` | Quit the app when the window is closed (see [patch](./02-start-without-tray.patch)) |
+| `--keep-kernel` | Report the actual numeric kernel version instead of `6.4.0` (see [patch](./04-remove-os-information.patch)) <br> *This feature impacts privacy.* |
+| `--hide-offline-banner` | Hide the "Application is offline" banner that appears when using a VPN or DNS blocker (see [patch](./08-hide-offline-banner.patch)) |
+| `--disable-animations` | Disable animations (see [patch](./09-disable-animations.patch)) |
+| `--disable-notifications` | Disable notifications (see [patch](./10-disable-notifications.patch)) |
+| `--sync-theme` | Sync the app's theme (dark/light) to the OS theme (see [patch](./15-sync-theme.patch)) |
+| `--disable-hardware-acceleration` | Disable hardware acceleration (useful for systems with GPU issues) (see [patch](./13-disable-hardware-acceleration.patch)) |
+| `--log-level=<level>` | Set the log level (`silly`,`debug`,`verbose`,`info`,`warn`,`error`) (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/06-control-log-level.patch)) |
 | `--enable-wayland-ime` | Enable IME keyboard support on Wayland (use with `--ozone-platform-hint=auto --wayland-text-input-version=3`) |
 
 | Environment variable | Options | Description |
 | :--- | :--- | :--- |
 | `DZ_START_IN_TRAY` | `yes`,`no` | Start the app in the tray (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/01-start-in-tray.patch)) |
-| `DZ_DISABLE_SYSTRAY` | `yes`,`no` | Quit the app when the window is closed (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/02-start-without-tray.patch)) |
-| `DZ_KEEP_KERNEL` | `yes`,`no` | Use the exact kernel version (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/04-remove-os-information.patch)) |
+| `DZ_DISABLE_SYSTRAY` | `yes`,`no` | Quit the app when the window is closed (see [patch](./02-start-without-tray.patch)) |
+| `DZ_KEEP_KERNEL` | `yes`,`no` | Report the actual numeric kernel version instead of `6.4.0` (see [patch](./04-remove-os-information.patch)) |
 | `DZ_LOG_LEVEL` | `silly`...`error` | Set the log level (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/06-control-log-level.patch)) |
-| `DZ_HIDE_OFFLINE_BANNER` | `yes`,`no` | Hide the "Application is offline" banner (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/08-hide-offline-banner.patch)) |
-| `DZ_DISABLE_ANIMATIONS` | `yes`,`no` | Disable animations (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/09-disable-animations.patch)) |
-| `DZ_DISABLE_NOTIFICATIONS` | `yes`,`no` | Disable notifications (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/10-disable-notifications.patch)) |
+| `DZ_HIDE_OFFLINE_BANNER` | `yes`,`no` | Hide the "Application is offline" banner (see [patch](./08-hide-offline-banner.patch)) |
+| `DZ_DISABLE_ANIMATIONS` | `yes`,`no` | Disable animations (see [patch](./09-disable-animations.patch)) |
+| `DZ_DISABLE_NOTIFICATIONS` | `yes`,`no` | Disable notifications (see [patch](./10-disable-notifications.patch)) |
 | `DZ_DEVTOOLS` | `yes`,`no` | Enable the developer console (ctrl+shift+i) |
-| `DZ_SYNC_THEME` | `yes`,`no` | Sync the app's theme to the OS theme (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/15-sync-theme.patch)) |
-| `DZ_DISABLE_HARDWARE_ACCELERATION` | `yes`,`no` | Disable hardware acceleration (see [patch](https://github.com/aunetx/deezer-linux/blob/master/patches/13-disable-hardware-acceleration.patch)) |
+| `DZ_SYNC_THEME` | `yes`,`no` | Sync the app's theme to the OS theme (see [patch](./15-sync-theme.patch)) |
+| `DZ_DISABLE_HARDWARE_ACCELERATION` | `yes`,`no` | Disable hardware acceleration (see [patch](./13-disable-hardware-acceleration.patch)) |
 | `DZ_TRAY_ICON` | `/path/to/icon` | Force a custom icon path for the systray (see [patch](./99-systray-icon.patch)) |
 
 ## Debugging
-Running the application from the commandline will show verbose logging.
+Run the application from the command line with debug logging enabled:
 ```
-deezer-desktop
+deezer-desktop --log-level=debug
 ```
 
 To run the application with devtools by running
 ```
-env DZ_DEVTOOLS=yes electron42 /usr/share/deezer/app.asar
+env DZ_DEVTOOLS=yes electron44 /usr/share/deezer/app.asar
 ```
 
 To debug node, you can extract the source files to a directory and inspect the node process by attaching using the chromium debugging tools. (https://www.electronjs.org/docs/tutorial/debugging-main-process)
 ```
 asar extract /usr/share/deezer/app.asar $dest
-electron41 --inspect-brk=$port $dest
+electron44 --inspect-brk=$port $dest
 ```

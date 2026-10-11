@@ -2,16 +2,13 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 
 pkgname="deezer"
-pkgver=7.1.340
+pkgver=8.0.0
 pkgrel=1
 
 # Keep this in sync with the formatter version used by aunetx/deezer-linux.
 # The upstream patches are easier to apply when the extracted Deezer JS/HTML
 # has been formatted with the same Prettier version.
 _prettier_ver=3.5.3
-
-# Runtime MPRIS helper injected into the Electron app.
-_mpris_ver=2.2.3
 
 # Commit hash for aunetx/deezer-linux patches.
 # Pinning the commit keeps the patch contents reproducible.
@@ -20,10 +17,10 @@ _patch_commit=95b02d57381c4e55fedb0bf14066ff9edd7962ee
 pkgdesc="A proprietary music streaming service"
 arch=('any')
 url="https://www.deezer.com/"
-license=('custom')
-depends=('electron42' 'hicolor-icon-theme' 'xdg-utils')
+license=('LicenseRef-Deezer')
+depends=('electron44' 'hicolor-icon-theme' 'xdg-utils')
 provides=('deezer')
-makedepends=('7zip' 'asar' 'imagemagick' 'npm')
+makedepends=('7zip' 'asar' 'imagemagick' 'nodejs')
 
 source=(
     "$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact-win32-x86-$pkgver"
@@ -35,26 +32,19 @@ source=(
     # Download the exact Prettier tarball
     "prettier-${_prettier_ver}.tgz::https://registry.npmjs.org/prettier/-/prettier-${_prettier_ver}.tgz"
 
-    # Locked npm project for the MPRIS dependency tree.
-    "mpris-package.json"
-    "mpris-package-lock.json"
-    "mpris-service-${_mpris_ver}.tgz::https://registry.npmjs.org/@jellybrick/mpris-service/-/mpris-service-${_mpris_ver}.tgz"
-
-    # Upstream patches from aunetx/deezer-linux.
+    # Upstream and local patches for Deezer 8.0.0.
     "01-start-in-tray-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/01-start-in-tray.patch"
-    "02-start-without-tray-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/02-start-without-tray.patch"
+    "02-start-without-tray.patch"
     "03-disable-auto-updater-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/03-disable-auto-updater.patch"
-    "04-remove-os-information-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/04-remove-os-information.patch"
-    "05-provide-metadata-mpris-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/05-provide-metadata-mpris.patch"
+    "04-remove-os-information.patch"
     "06-control-log-level-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/06-control-log-level.patch"
-    "07-improve-responsiveness-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/07-improve-responsiveness.patch"
-    "08-hide-offline-banner-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/08-hide-offline-banner.patch"
-    "09-disable-animations-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/09-disable-animations.patch"
-    "10-disable-notifications-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/10-disable-notifications.patch"
-    "11-fix-thumbar-actions-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/11-fix-thumbar-actions.patch"
-    "12-adjust-volume-on-wheel-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/12-adjust-volume-on-wheel.patch"
-    "13-disable-hardware-acceleration-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/13-disable-hardware-acceleration.patch"
-    "15-sync-theme-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/15-sync-theme.patch"
+    "07-improve-responsiveness.patch"
+    "08-hide-offline-banner.patch"
+    "09-disable-animations.patch"
+    "10-disable-notifications.patch"
+    "12-adjust-volume-on-wheel.patch"
+    "13-disable-hardware-acceleration.patch"
+    "15-sync-theme.patch"
 
     # Local patches
     "99-systray-icon.patch"
@@ -62,32 +52,26 @@ source=(
 
 noextract=(
     "prettier-${_prettier_ver}.tgz"
-    "mpris-service-${_mpris_ver}.tgz"
 )
 
-sha256sums=('773dbfcc32b536b818b645f4684f7d24203689a01a4ed68c1907b3a9f4afff3a'
+sha256sums=('a45091129694c0ed92fa7534b1742c683e869c462766d9fa4b4193ee57015f95'
             'c33b398d8ae279a620cf2914c806f7ee00c47519e4f404874cfd90a68fc8d80f'
-            '2712df28c1c061988ef75bfa543532ce16def27252b572d72ba3944a9788ac2c'
+            'addc90b0950c9432fe4fd9e99540cedd778de531413403668cd583a91a19d5c6'
             '951c80c9dc4848b31a5fcc9655b005f3a218b1ff735396168c13922ac658c83b'
             'fe9bab50ef433516105ed2f2c349736c0be87c2f75f8d18bf1f011b2115019c1'
             '14841de7b71a93123d22997db22d088debb13976778d869e3622199108e85b4b'
-            '1c2449ab478c99ad8b5f6ba545eeb778d279f20a72e64bd6694485c7766d1876'
-            'c18f6d106d5a9320b520c441c5d232ff8f8ce61a98babfd1eb29378e8b68f803'
-            '20c3254c49975b05fe76b6ef650c9db93c5f028ac9e9c9e62c89762acc7076d0'
             '655681a094721af8fba69b729b8276ee345e5aac99239726c3e53039b0811cef'
-            'd1d2914e4bc9826acd139108ff2010eb3dc51154e35079612bacbf77a8a1d326'
+            'c00afc2542c8a58e0d7c9f3c36f513a23b10866246ea543076f3388e71888ac2'
             'f07df06e56552116ad15bb8ee1c01dede0947dcfeb763a0ddeb8d87732c37f40'
-            '37ba808250e59821b5265a4900c56820e40e2b7ebb295fcac05375eca0daee5b'
-            'd1651ab48109a512fd63c5dab43812bbf3d08d9ff81ddae4ed0ec1cfa9d1d31e'
+            '9f846bbf9c5281175150f3b7ecbcc2a027c6f4dbb4abed307c6fc39d6b19e170'
             'a88886df73b38a23fd8fac931cad86f7b7d6fb4b51697ba236311869ab09180d'
-            '56a745ec9ab1ba86c8f5dfbba65195fc143e29a6bf28f040034867ee9a8e2154'
-            'b85d40aab533f29cc74d4869363ad4c2bf610d9663e6c48ffcc774542bf70349'
-            '4f59009fac59a740fd053edd6e68c881db97e270430c4be9de19c389908b8545'
-            '2095217bee000f1950d39a7592831fb2640e7f8f7d0c5eff14baa87960072dfe'
-            'a1b13d97b8618e7fb9d3a3376b2cf59aea5260b0fb429fce8fb20b1ead977304'
-            'f3d9a4b13f639260b4147dfe94694ab29448aa254d65748b4f20129d10fe4fb7'
-            '22f55ee12eb4c4d678eabc91d4e6520a9c0381560a74cc51f097ddce8b317673'
-            'bf033d4448546d730db7f19519518e8d6f7fd3498c71d02825ae21e96a798441'
+            '83177123ca4157887ac74d88853b2d1e5fe05c0556fdea5e30ec919ab3653db6'
+            '379155a0bcb373c05797d204bffb5f8d87b65e918c5dc843b7472885b701731a'
+            '310b90a12b444289957ad660e2847a5d5f41c30a4ae1a71c74553613aa4df4b3'
+            '6b60356ddc47f6df04d5e449dd72a143a837ca64816d7bcd34c509bf746db0d2'
+            '87e37bf204507e1cca42be071140ecc0365c156f81e306b7a9eae796f1ab4693'
+            '6f73e43b0b26ccceb6ef6a9d0d7a625448898e22bea72ce43d5cf23bc766f547'
+            'ece172c579a08c08ef8503c5fc4c158dcaa2e5b8b313937eeb9e02f552ab8c9d'
             '2362c52147cf67759388ba6685e2add32c5bcfcdbdbca8e0990f58cafa0392de')
 
 _setup_prettier() {
@@ -103,31 +87,6 @@ _setup_prettier() {
 _prettier() {
     # Wrapper around the pinned Prettier CLI.
     node "$srcdir/prettier/bin/prettier.cjs" "$@"
-}
-
-_setup_mpris() {
-    # Install MPRIS support from a locked npm dependency tree.
-    #
-    # mpris-service itself is downloaded through source=() and verified by
-    # sha256sums. The lockfile pins all transitive dependency versions and npm
-    # integrity hashes.
-    rm -rf "$srcdir/mpris-vendor"
-    mkdir -p "$srcdir/mpris-vendor"
-
-    cp "$srcdir/mpris-package.json" "$srcdir/mpris-vendor/package.json"
-    cp "$srcdir/mpris-package-lock.json" "$srcdir/mpris-vendor/package-lock.json"
-    cp "$srcdir/mpris-service-${_mpris_ver}.tgz" "$srcdir/mpris-vendor/"
-
-    npm ci \
-        --prefix "$srcdir/mpris-vendor" \
-        --cache "$srcdir/npm-cache" \
-        --omit=dev \
-        --no-audit \
-        --no-fund \
-        --ignore-scripts
-
-    mkdir -p "$srcdir/resources/app/node_modules"
-    cp -a "$srcdir/mpris-vendor/node_modules/." "$srcdir/resources/app/node_modules/"
 }
 
 prepare() {
@@ -173,11 +132,8 @@ prepare() {
         [[ $src = *.patch ]] || continue
 
         echo "Applying patch ${src}..."
-        patch -Np1 -l -F3 < "${srcdir}/${src}"
+        patch --batch --forward --no-backup-if-mismatch -Np1 -l -F0 < "${srcdir}/${src}"
     done
-
-    # Add MPRIS runtime dependencies to the unpacked app.
-    _setup_mpris
 
     cd "$srcdir/resources/"
 

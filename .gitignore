@@ -3,4 +3,15 @@ src
 deezer-*.exe
 *.tgz
 *.patch
+!02-start-without-tray.patch
+!04-remove-os-information.patch
+!07-improve-responsiveness.patch
+!08-hide-offline-banner.patch
+!09-disable-animations.patch
+!10-disable-notifications.patch
+!12-adjust-volume-on-wheel.patch
+!13-disable-hardware-acceleration.patch
+!15-sync-theme.patch
 !99-*.patch
+/tests/.runtime/
+/tests/**/__pycache__/
