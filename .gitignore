@@ -5,6 +5,8 @@ deezer-*.exe
 *.patch
 !02-start-without-tray.patch
 !04-remove-os-information.patch
+!05-mpris.patch
+!06-control-log-level.patch
 !07-improve-responsiveness.patch
 !08-hide-offline-banner.patch
 !09-disable-animations.patch

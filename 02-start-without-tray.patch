@@ -20,7 +20,7 @@
 +      if (
 +        (this.appService.setUserAgent(), isPlatform(PLATFORM.LINUX)) &&
 +        !(
-+          process.argv.some((arg) => arg === "--disable-systray") ||
++          process.argv.includes("--disable-systray") ||
 +          "yes" === process.env.DZ_DISABLE_SYSTRAY
 +        )
 +      ) {

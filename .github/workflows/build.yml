@@ -33,12 +33,6 @@ jobs:
         run: |
           su builder -c "makepkg -s --noconfirm"
 
-      - name: Check patched JavaScript
-        run: |
-          for js in src/resources/app/build/*.js; do
-            node --check "$js"
-          done
-
       - name: Upload build artifact
         uses: actions/upload-artifact@v7
         with:

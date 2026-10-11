@@ -12,8 +12,8 @@ This package applies several patches for:
 
 Deezer 8.0.0 runs on Electron 44 with tray controls, smaller windows, and
 five-percent volume steps when scrolling over the volume button or slider.
-Native MPRIS provides metadata, playback controls, and seeking as the `chromium`
-player.
+MPRIS provides metadata, playback controls, seeking, volume, shuffle, repeat,
+and window activation as the `deezer` player.
 
 To install on Arch Linux, use your favourite AUR helper or build manually with:
 ```

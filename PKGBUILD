@@ -3,12 +3,13 @@
 
 pkgname="deezer"
 pkgver=8.0.0
-pkgrel=1
+pkgrel=2
 
 # Keep this in sync with the formatter version used by aunetx/deezer-linux.
 # The upstream patches are easier to apply when the extracted Deezer JS/HTML
 # has been formatted with the same Prettier version.
 _prettier_ver=3.5.3
+_mpris_ver=2.2.3
 
 # Commit hash for aunetx/deezer-linux patches.
 # Pinning the commit keeps the patch contents reproducible.
@@ -20,7 +21,7 @@ url="https://www.deezer.com/"
 license=('LicenseRef-Deezer')
 depends=('electron44' 'hicolor-icon-theme' 'xdg-utils')
 provides=('deezer')
-makedepends=('7zip' 'asar' 'imagemagick' 'nodejs')
+makedepends=('7zip' 'asar' 'imagemagick' 'nodejs' 'npm')
 
 source=(
     "$pkgname-$pkgver-setup.exe::https://www.deezer.com/desktop/download/artifact-win32-x86-$pkgver"
@@ -32,12 +33,17 @@ source=(
     # Download the exact Prettier tarball
     "prettier-${_prettier_ver}.tgz::https://registry.npmjs.org/prettier/-/prettier-${_prettier_ver}.tgz"
 
+    "mpris-service-${_mpris_ver}.tgz::https://registry.npmjs.org/@jellybrick/mpris-service/-/mpris-service-${_mpris_ver}.tgz"
+    "mpris-package.json"
+    "mpris-package-lock.json"
+
     # Upstream and local patches for Deezer 8.0.0.
     "01-start-in-tray-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/01-start-in-tray.patch"
     "02-start-without-tray.patch"
     "03-disable-auto-updater-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/03-disable-auto-updater.patch"
     "04-remove-os-information.patch"
-    "06-control-log-level-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/06-control-log-level.patch"
+    "05-mpris.patch"
+    "06-control-log-level.patch"
     "07-improve-responsiveness.patch"
     "08-hide-offline-banner.patch"
     "09-disable-animations.patch"
@@ -51,6 +57,7 @@ source=(
 )
 
 noextract=(
+    "mpris-service-${_mpris_ver}.tgz"
     "prettier-${_prettier_ver}.tgz"
 )
 
@@ -60,19 +67,23 @@ sha256sums=('a45091129694c0ed92fa7534b1742c683e869c462766d9fa4b4193ee57015f95'
             '951c80c9dc4848b31a5fcc9655b005f3a218b1ff735396168c13922ac658c83b'
             'fe9bab50ef433516105ed2f2c349736c0be87c2f75f8d18bf1f011b2115019c1'
             '14841de7b71a93123d22997db22d088debb13976778d869e3622199108e85b4b'
+            '20c3254c49975b05fe76b6ef650c9db93c5f028ac9e9c9e62c89762acc7076d0'
+            '1c2449ab478c99ad8b5f6ba545eeb778d279f20a72e64bd6694485c7766d1876'
+            'c18f6d106d5a9320b520c441c5d232ff8f8ce61a98babfd1eb29378e8b68f803'
             '655681a094721af8fba69b729b8276ee345e5aac99239726c3e53039b0811cef'
-            'c00afc2542c8a58e0d7c9f3c36f513a23b10866246ea543076f3388e71888ac2'
+            'db502aaa9d9ae84bd38cdba4d96d267d97e1e0e6ef8e2249c1f62652ae6e1e3f'
             'f07df06e56552116ad15bb8ee1c01dede0947dcfeb763a0ddeb8d87732c37f40'
             '9f846bbf9c5281175150f3b7ecbcc2a027c6f4dbb4abed307c6fc39d6b19e170'
-            'a88886df73b38a23fd8fac931cad86f7b7d6fb4b51697ba236311869ab09180d'
+            '033387bc28413ed7d8addbaf9432f36fe14572c58983a271be31190bab4a214a'
+            '7019b9bdf6311506092e53a5ca3f9c8a057e7b1a7cb3ec7013da73e25d48a141'
             '83177123ca4157887ac74d88853b2d1e5fe05c0556fdea5e30ec919ab3653db6'
             '379155a0bcb373c05797d204bffb5f8d87b65e918c5dc843b7472885b701731a'
             '310b90a12b444289957ad660e2847a5d5f41c30a4ae1a71c74553613aa4df4b3'
             '6b60356ddc47f6df04d5e449dd72a143a837ca64816d7bcd34c509bf746db0d2'
             '87e37bf204507e1cca42be071140ecc0365c156f81e306b7a9eae796f1ab4693'
             '6f73e43b0b26ccceb6ef6a9d0d7a625448898e22bea72ce43d5cf23bc766f547'
-            'ece172c579a08c08ef8503c5fc4c158dcaa2e5b8b313937eeb9e02f552ab8c9d'
-            '2362c52147cf67759388ba6685e2add32c5bcfcdbdbca8e0990f58cafa0392de')
+            '830c594ebac21b7fd6a27eed925b60254c3644a341a63a1f6bb908d40f1e648e'
+            'f7ce4845f52f07aea1f64057283ac4d1bc668bf22b4f6ea31f85f10625289e8e')
 
 _setup_prettier() {
     # Extract the prettier tarball into a stable location.
@@ -87,6 +98,31 @@ _setup_prettier() {
 _prettier() {
     # Wrapper around the pinned Prettier CLI.
     node "$srcdir/prettier/bin/prettier.cjs" "$@"
+}
+
+_setup_mpris() {
+    # Install MPRIS support from a locked npm dependency tree.
+    #
+    # mpris-service itself is downloaded through source=() and verified by
+    # sha256sums. The lockfile pins all transitive dependency versions and npm
+    # integrity hashes.
+    rm -rf "$srcdir/mpris-vendor"
+    mkdir -p "$srcdir/mpris-vendor"
+
+    cp "$srcdir/mpris-package.json" "$srcdir/mpris-vendor/package.json"
+    cp "$srcdir/mpris-package-lock.json" "$srcdir/mpris-vendor/package-lock.json"
+    cp "$srcdir/mpris-service-${_mpris_ver}.tgz" "$srcdir/mpris-vendor/"
+
+    npm ci \
+        --prefix "$srcdir/mpris-vendor" \
+        --cache "$srcdir/npm-cache" \
+        --omit=dev \
+        --no-audit \
+        --no-fund \
+        --ignore-scripts
+
+    mkdir -p "$srcdir/resources/app/node_modules"
+    cp -a "$srcdir/mpris-vendor/node_modules/." "$srcdir/resources/app/node_modules/"
 }
 
 prepare() {
@@ -134,6 +170,8 @@ prepare() {
         echo "Applying patch ${src}..."
         patch --batch --forward --no-backup-if-mismatch -Np1 -l -F0 < "${srcdir}/${src}"
     done
+
+    _setup_mpris
 
     cd "$srcdir/resources/"
 

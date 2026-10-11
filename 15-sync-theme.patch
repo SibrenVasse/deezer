@@ -1,7 +1,7 @@
 # Deezer 8.0.0: sync theme.
 --- a/build/main.js
 +++ b/build/main.js
-@@ -3379,6 +3379,31 @@
+@@ -3379,6 +3379,29 @@
          this.window.on("unresponsive", () => {
            external_electron_log_default().warn("Window is not responsive");
          });
@@ -13,15 +13,13 @@
 +          const preference = matchMedia("(prefers-color-scheme: dark)");
 +          const root = document.documentElement;
 +          const body = document.body;
-+          const applyTheme = () => {
++          function applyTheme() {
 +            const theme = preference.matches ? "dark" : "light";
-+            const current = "chakra-ui-" + theme;
-+            const opposite = "chakra-ui-" + (preference.matches ? "light" : "dark");
 +            if (root.dataset.theme !== theme) root.dataset.theme = theme;
 +            if (root.style.colorScheme !== theme) root.style.colorScheme = theme;
-+            if (!body.classList.contains(current)) body.classList.add(current);
-+            if (body.classList.contains(opposite)) body.classList.remove(opposite);
-+          };
++            body.classList.toggle("chakra-ui-dark", preference.matches);
++            body.classList.toggle("chakra-ui-light", !preference.matches);
++          }
 +          applyTheme();
 +          preference.addEventListener("change", applyTheme);
 +          const observer = new MutationObserver(applyTheme);
