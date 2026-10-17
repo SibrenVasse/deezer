@@ -1,7 +1,8 @@
 pkg
 src
-deezer-*.exe
+*.exe
 *.tgz
+/*.css
 *.patch
 !02-start-without-tray.patch
 !04-remove-os-information.patch
@@ -14,6 +15,7 @@ deezer-*.exe
 !12-adjust-volume-on-wheel.patch
 !13-disable-hardware-acceleration.patch
 !15-sync-theme.patch
+!16-custom-theme.patch
 !99-*.patch
 /tests/.runtime/
 /tests/**/__pycache__/

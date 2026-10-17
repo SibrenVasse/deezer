@@ -2,8 +2,8 @@
 # Contributor: Ilya Gulya <ilyagulya@gmail.com>
 
 pkgname="deezer"
-pkgver=8.0.0
-pkgrel=2
+pkgver=8.0.10
+pkgrel=1
 
 # Keep this in sync with the formatter version used by aunetx/deezer-linux.
 # The upstream patches are easier to apply when the extracted Deezer JS/HTML
@@ -12,8 +12,7 @@ _prettier_ver=3.5.3
 _mpris_ver=2.2.3
 
 # Commit hash for aunetx/deezer-linux patches.
-# Pinning the commit keeps the patch contents reproducible.
-_patch_commit=95b02d57381c4e55fedb0bf14066ff9edd7962ee
+_patch_commit=fcf1972d0c2195a78d92306b5a2ddadd1965e714
 
 pkgdesc="A proprietary music streaming service"
 arch=('any')
@@ -37,7 +36,7 @@ source=(
     "mpris-package.json"
     "mpris-package-lock.json"
 
-    # Upstream and local patches for Deezer 8.0.0.
+    # Upstream and local patches
     "01-start-in-tray-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/01-start-in-tray.patch"
     "02-start-without-tray.patch"
     "03-disable-auto-updater-${_patch_commit}.patch::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/patches/03-disable-auto-updater.patch"
@@ -51,9 +50,20 @@ source=(
     "12-adjust-volume-on-wheel.patch"
     "13-disable-hardware-acceleration.patch"
     "15-sync-theme.patch"
-
-    # Local patches
+    "16-custom-theme.patch"
     "99-systray-icon.patch"
+
+    # CSS themes and a template
+    "everforest-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/everforest.css"
+    "gruvbox-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/gruvbox.css"
+    "liquid-glass-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/liquid-glass.css"
+    "matrix-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/matrix.css"
+    "monokai-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/monokai.css"
+    "nord-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/nord.css"
+    "primer-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/primer.css"
+    "solarized-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/solarized.css"
+    "synthwave-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/synthwave.css"
+    "template-${_patch_commit}.css::https://raw.githubusercontent.com/aunetx/deezer-linux/${_patch_commit}/themes/template.css"
 )
 
 noextract=(
@@ -61,7 +71,7 @@ noextract=(
     "prettier-${_prettier_ver}.tgz"
 )
 
-sha256sums=('a45091129694c0ed92fa7534b1742c683e869c462766d9fa4b4193ee57015f95'
+sha256sums=('21215c49c3b7a3720fc8dad523cb6a384f2432fa5436e4399db8478e774dd96b'
             'c33b398d8ae279a620cf2914c806f7ee00c47519e4f404874cfd90a68fc8d80f'
             'addc90b0950c9432fe4fd9e99540cedd778de531413403668cd583a91a19d5c6'
             '951c80c9dc4848b31a5fcc9655b005f3a218b1ff735396168c13922ac658c83b'
@@ -83,7 +93,18 @@ sha256sums=('a45091129694c0ed92fa7534b1742c683e869c462766d9fa4b4193ee57015f95'
             '87e37bf204507e1cca42be071140ecc0365c156f81e306b7a9eae796f1ab4693'
             '6f73e43b0b26ccceb6ef6a9d0d7a625448898e22bea72ce43d5cf23bc766f547'
             '830c594ebac21b7fd6a27eed925b60254c3644a341a63a1f6bb908d40f1e648e'
-            'f7ce4845f52f07aea1f64057283ac4d1bc668bf22b4f6ea31f85f10625289e8e')
+            '3aad118f82350f009601137c7639e1ee5474b7acd83dfb8f1d5593e24b3275ea'
+            'f7ce4845f52f07aea1f64057283ac4d1bc668bf22b4f6ea31f85f10625289e8e'
+            '4de4113297ee8cf246db38a02fd0ded3cb7fb013843941dccf941412a6ca5b83'
+            'bb83db631c8e7b8d26cb1b50c636dec07c8954e03bf360c5dd890efc53028682'
+            'f8e7a73f0a61d43a13839720f0740f60ebf3be0201100c1a32ee2077b679cd12'
+            'ca54c0e7cb17e9d062857c26c4236fbaa2635ea89e6ce1927726c59bac888c7a'
+            '2e095ce38317246f5d2963c6831ac312e7fa4246cdad8009574f2bf38a7db3a9'
+            'afe01d616e850835ef51cc526663d793fc02e95acd10b57ea119b545086440e1'
+            'ed50f72a9a1f29c96734765525ad7de4dd856363ff2114afa630592bb57fac3d'
+            'd43b89d339066379ace91288e8150aef1af56f812a1a91504d0703553d275a85'
+            '438e8b82bfd14efd7c5910ff52d89112c468a091f20946d886b145ccd14bc35c'
+            '6e71f90ad076568c56331f41bd369b35ef067e62dba1ec8790667bffeed85b00')
 
 _setup_prettier() {
     # Extract the prettier tarball into a stable location.
@@ -195,6 +216,13 @@ package() {
     done
 
     install -Dm644 resources/app.asar "$pkgdir/usr/share/deezer/app.asar"
+    local theme
+    for theme in "${source[@]}"; do
+        theme="${theme%%::*}"
+        [[ $theme = *.css ]] || continue
+        install -Dm644 "$srcdir/$theme" \
+            "$pkgdir/usr/share/deezer/themes/${theme%-${_patch_commit}.css}.css"
+    done
     install -Dm644 "$pkgname-desktop.desktop" "$pkgdir/usr/share/applications/$pkgname-desktop.desktop"
     install -Dm755 deezer-desktop "$pkgdir/usr/bin/deezer-desktop"
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
